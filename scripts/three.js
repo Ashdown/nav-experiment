@@ -39,7 +39,6 @@
     menuItems[3].attr("fill", "#00f").attr("stroke", "#00f");
 
 
-
     var moveItem = function (destinationx, destinationy) {
             //point we should move toward
             var destinationPoint = {
@@ -61,17 +60,20 @@
                     break;
                 }
             }
-            console.log('this item: '+ thisMenuItemIndexNumber);
             for (var i = 0; i < menuItems.length; i++) {
                 if (i !== thisMenuItemIndexNumber) {
+                    var newDistance = (distance + ((i - thisMenuItemIndexNumber) * stickyThreshold));
+//                    var newDistance = (distance + stickyThreshold);
 
-                    var newDistance = (distance + (i * stickyThreshold));
-
+                    console.log(newDistance);
+                    console.log()
                     if (newDistance > totalPathLength) {
                         newDistance = newDistance - totalPathLength;
                     }
-
+                    console.log(newDistance);
                     var newPoint = circlePath.getPointAtLength(newDistance);
+                    console.log('newPoint.x: ' + newPoint.x);
+                    console.log('newPoint.y: ' + newPoint.y);
                     menuItems[i].attr({cx: newPoint.x, cy: newPoint.y})
 
                 }
@@ -107,11 +109,31 @@
                     distance = distance - stickyThresholdRemainder;
                 }
 
+
+                point = circlePath.getPointAtLength(distance);
+
+                itemAnimations.push(this.animate({cx: point.x, cy: point.y}, 200, 'backOut'));
+
+                var thisMenuItemIndexNumber = 0;
+
+                for (var i = 0; i < menuItems.length; i++) {
+                    if (menuItems[i] === this) {
+                        thisMenuItemIndexNumber = i;
+                        break;
+                    }
+                }
+                for (var i = 0; i < menuItems.length; i++) {
+                    if (i !== thisMenuItemIndexNumber) {
+                        var newDistance = (distance + ((i - thisMenuItemIndexNumber) * stickyThreshold));
+                        if (newDistance > totalPathLength) {
+                            newDistance = newDistance - totalPathLength;
+                        }
+                        var newPoint = circlePath.getPointAtLength(newDistance);
+                        itemAnimations.push(menuItems[i].animate({cx: newPoint.x, cy: newPoint.y}, 200, 'backOut'));
+                    }
+                }
+
             }
-
-            point = circlePath.getPointAtLength(distance);
-
-            itemAnimation = this.animate({cx: point.x, cy: point.y}, 200, 'backOut');
 
             var itemNumber = distance / stickyThreshold;
 
