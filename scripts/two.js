@@ -2,7 +2,7 @@ var searchDl = 1;
 var l = 0;
 
 // Creates canvas 320 × 200 at 10, 50
-var r = Raphael(10, 50, 320, 200);
+var r = Raphael(0, 0, 320, 200);
 
 var p = r.path("M100,100c0,50 100-50 100,0c0,50 -100-50 -100,0z").attr({stroke: "#ddf"}),
     //point object representing the distance to length l from the start of the path
