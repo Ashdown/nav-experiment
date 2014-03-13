@@ -65,22 +65,17 @@
                     var newDistance = (distance + ((i - thisMenuItemIndexNumber) * stickyThreshold));
 //                    var newDistance = (distance + stickyThreshold);
 
-                    console.log(distance);
-                    console.log(newDistance);
-                    console.log(totalPathLength);
+                    if (newDistance < 0) {
+                        newDistance = totalPathLength + newDistance;
+                    }
                     if (newDistance > totalPathLength) {
                         newDistance = newDistance - totalPathLength;
                     }
-                    console.log(newDistance);
                     var newPoint = circlePath.getPointAtLength(newDistance);
-                    console.log('newPoint.x: ' + newPoint.x);
-                    console.log('newPoint.y: ' + newPoint.y);
                     menuItems[i].attr({cx: newPoint.x, cy: newPoint.y})
 
                 }
             }
-
-            //TODO: make them move around as well
 
         },
         startItem = function () {
@@ -126,9 +121,14 @@
                 for (var i = 0; i < menuItems.length; i++) {
                     if (i !== thisMenuItemIndexNumber) {
                         var newDistance = (distance + ((i - thisMenuItemIndexNumber) * stickyThreshold));
+                        if (newDistance < 0) {
+                            newDistance = totalPathLength + newDistance;
+                        }
                         if (newDistance > totalPathLength) {
                             newDistance = newDistance - totalPathLength;
                         }
+                        console.log(distance);
+                        console.log(newDistance);
                         var newPoint = circlePath.getPointAtLength(newDistance);
                         itemAnimations.push(menuItems[i].animate({cx: newPoint.x, cy: newPoint.y}, 200, 'backOut'));
                     }
