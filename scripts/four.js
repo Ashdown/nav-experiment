@@ -5,23 +5,21 @@
 
     var circlePath = paper.path(Raphael._getPath.circle({ attrs: { cx: 160, cy: 160, r: 160 } }))
     var point = circlePath.getPointAtLength(distance);
-//    var menuItem = paper.circle(160, 0, 40);
-
-//    menuItem.attr("fill", "#f00");
-//    menuItem.attr("stroke", "#f00");
 
     var totalPathLength = circlePath.getTotalLength();
 
     var searchDl = 1;
 
-//    var itemAnimation;
+    var nextPageIndexValue = 0;
 
     var menuItems = new Array();
     var itemAnimations = new Array();
-//
     var nextItemPoint = circlePath.getPointAtLength(distance);
 
-    var totalNumberOfMenuItems = 5;
+    var menuItemHomeX = nextItemPoint.x;
+    var menuItemHomeY = nextItemPoint.y;
+
+    var totalNumberOfMenuItems = 8;
 
     var stickyThreshold = totalPathLength / totalNumberOfMenuItems;//220;
 
@@ -32,6 +30,8 @@
         menuItems.push(newMenuItem);
         nextItemPoint = circlePath.getPointAtLength(stickyThreshold * i);
     }
+
+    //give them better colours
 
     menuItems[0].attr("fill", "#ff0").attr("stroke", "#ff0");
     menuItems[1].attr("fill", "#000").attr("stroke", "#000");
@@ -118,6 +118,21 @@
                         break;
                     }
                 }
+
+                function isThisTheCurrentSlide(point) {
+                if ((point.y >= (menuItemHomeY - 10)) &&
+                    (point.y <= (menuItemHomeY + 10)) &&
+                    (point.x >= (menuItemHomeX -10)) &&
+                    (point.x <= (menuItemHomeX + 10))){
+                        return true;
+                    }
+                }
+
+
+                if (isThisTheCurrentSlide(point)) {
+                    nextPageIndexValue = i;
+                }
+
                 for (var i = 0; i < menuItems.length; i++) {
                     if (i !== thisMenuItemIndexNumber) {
                         var newDistance = (distance + ((i - thisMenuItemIndexNumber) * stickyThreshold));
@@ -127,18 +142,27 @@
                         if (newDistance > totalPathLength) {
                             newDistance = newDistance - totalPathLength;
                         }
-                        console.log(distance);
-                        console.log(newDistance);
                         var newPoint = circlePath.getPointAtLength(newDistance);
                         itemAnimations.push(menuItems[i].animate({cx: newPoint.x, cy: newPoint.y}, 200, 'backOut'));
+                        if (isThisTheCurrentSlide(newPoint)) {
+                            nextPageIndexValue = i;
+                        }
                     }
                 }
 
             }
 
-            var itemNumber = distance / stickyThreshold;
+            var itemNumber = 0;
 
-            $('#item-number').text(itemNumber + 1);
+            if (distance != 0) {
+                itemNumber = distance / stickyThreshold;
+            }
+
+            if (itemNumber === totalNumberOfMenuItems) {
+                itemNumber = 0;
+            }
+
+            $('#item-number').text(nextPageIndexValue + 1);
 
 
         },
