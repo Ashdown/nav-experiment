@@ -65,8 +65,9 @@
                     var newDistance = (distance + ((i - thisMenuItemIndexNumber) * stickyThreshold));
 //                    var newDistance = (distance + stickyThreshold);
 
+                    console.log(distance);
                     console.log(newDistance);
-                    console.log()
+                    console.log(totalPathLength);
                     if (newDistance > totalPathLength) {
                         newDistance = newDistance - totalPathLength;
                     }
