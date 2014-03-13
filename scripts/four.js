@@ -1,9 +1,9 @@
 (function ($, Raphael) {
 
-    var paper = Raphael(0, 0, 320, 480);
+    var paper = Raphael(0, 240, 320, 240);
     var distance = 0;
 
-    var circlePath = paper.path(Raphael._getPath.circle({ attrs: { cx: 160, cy: 160, r: 160 } }))
+    var circlePath = paper.path(Raphael._getPath.circle({ attrs: { cx: 160, cy: 200, r: 160 } }))
     var point = circlePath.getPointAtLength(distance);
 
     var totalPathLength = circlePath.getTotalLength();
