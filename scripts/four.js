@@ -1,9 +1,10 @@
 (function ($, Raphael) {
 
-    var paper = Raphael(0, 240, 320, 240);
+    var paper = Raphael($('#canvas')[0], 320, 240);
     var distance = 0;
 
-    var circlePath = paper.path(Raphael._getPath.circle({ attrs: { cx: 160, cy: 200, r: 160 } }))
+    var circlePath = paper.path(Raphael._getPath.circle({ attrs: { cx: 160, cy: 200, r: 160 } }));
+    circlePath.attr("stroke", "#333");
     var point = circlePath.getPointAtLength(distance);
 
     var totalPathLength = circlePath.getTotalLength();
@@ -19,7 +20,7 @@
     var menuItemHomeX = nextItemPoint.x;
     var menuItemHomeY = nextItemPoint.y;
 
-    var totalNumberOfMenuItems = 8;
+    var totalNumberOfMenuItems = 11;
 
     var stickyThreshold = totalPathLength / totalNumberOfMenuItems;//220;
 
@@ -33,10 +34,53 @@
 
     //give them better colours
 
-    menuItems[0].attr("fill", "#ff0").attr("stroke", "#ff0");
-    menuItems[1].attr("fill", "#000").attr("stroke", "#000");
-    menuItems[2].attr("fill", "#0ff").attr("stroke", "#0ff");
-    menuItems[3].attr("fill", "#00f").attr("stroke", "#00f");
+    menuItems[0].attr("fill", "#ff0").attr("stroke", "#a0a0a0");
+    menuItems[0].attr({
+        "fill": "90-#a0a0a0:5-#ebebeb:95"
+    });
+    menuItems[1].attr("fill", "#000").attr("stroke", "#A17733");
+    menuItems[1].attr({
+        "fill": "90-#A17733:5-#EBB04E:95"
+    });
+    menuItems[2].attr("fill", "#0ff").attr("stroke", "8E0000");
+    menuItems[2].attr({
+        "fill": "90-#8E0000:5-#D20000:95"
+    });
+    menuItems[3].attr("fill", "#00f").attr("stroke", "#0001A2");
+    menuItems[3].attr({
+        "fill": "90-#0001A2:5-#0000FF:95"
+    });
+    menuItems[4].attr("fill", "#ff0").attr("stroke", "#a0a0a0");
+    menuItems[4].attr({
+        "fill": "90-#a0a0a0:5-#ebebeb:95"
+    });
+    menuItems[5].attr("fill", "#000").attr("stroke", "#A17733");
+    menuItems[5].attr({
+        "fill": "90-#A17733:5-#EBB04E:95"
+    });
+    menuItems[6].attr("fill", "#0ff").attr("stroke", "8E0000");
+    menuItems[6].attr({
+        "fill": "90-#8E0000:5-#D20000:95"
+    });
+    menuItems[7].attr("fill", "#00f").attr("stroke", "#0001A2");
+    menuItems[7].attr({
+        "fill": "90-#0001A2:5-#0000FF:95"
+    });
+    menuItems[8].attr("fill", "#ff0").attr("stroke", "#a0a0a0");
+    menuItems[8].attr({
+        "fill": "90-#a0a0a0:5-#ebebeb:95"
+    });
+    menuItems[9].attr("fill", "#000").attr("stroke", "#A17733");
+    menuItems[9].attr({
+        "fill": "90-#A17733:5-#EBB04E:95"
+    });
+    menuItems[10].attr("fill", "#0ff").attr("stroke", "8E0000");
+    menuItems[10].attr({
+        "fill": "90-#8E0000:5-#D20000:95"
+    });
+
+
+
 
 
     var moveItem = function (destinationx, destinationy) {
